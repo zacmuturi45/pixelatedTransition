@@ -42,3 +42,26 @@ gsap.registerPlugin(
   SplitText,
   TextPlugin
 );
+
+export {
+  gsap,
+  Draggable,
+  DrawSVGPlugin,
+  EaselPlugin,
+  Flip,
+  GSDevTools,
+  InertiaPlugin,
+  MotionPathHelper,
+  MotionPathPlugin,
+  MorphSVGPlugin,
+  Observer,
+  Physics2DPlugin,
+  PhysicsPropsPlugin,
+  PixiPlugin,
+  ScrambleTextPlugin,
+  ScrollTrigger,
+  ScrollSmoother,
+  ScrollToPlugin,
+  SplitText,
+  TextPlugin,
+};
