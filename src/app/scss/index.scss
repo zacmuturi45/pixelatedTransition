@@ -4,6 +4,25 @@
   font-style: normal;
 }
 
+@import url("https://fonts.cdnfonts.com/css/pp-neue-montreal");
+
+@import url("https://fonts.cdnfonts.com/css/overused-grotesk");
+
+@import url("https://fonts.cdnfonts.com/css/roboto-condensed-3");
+
+:root {
+  --tone-0: #ffffff;
+  --tone-100: #000000;
+  --tone-200: #222222;
+  --tone-300: #5b5c57;
+  --tone-400: #e3e4d8;
+  --tone-500: #b6fe4b;
+  --tone-600: #ff0000;
+  --main-font: "PP Neue Montreal", sans-serif;
+  --secondary-font: "Overused Grotesk", sans-serif;
+  --auxilliary-font: "Roboto Condensed", sans-serif;
+}
+
 body {
   min-height: 100vh;
   display: flex;
