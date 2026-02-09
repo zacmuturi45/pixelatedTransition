@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useRef } from "react";
 import Navbar from "./Components/navbar";
+import { ScrollDirectionProvider } from "./Contexts/scrollDirection";
 
 const AnimationContext = createContext<AnimationContextType>({
   isReady: false,
@@ -22,8 +23,10 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <main ref={contentRef} className="main_content">
-          <Navbar />
-          {children}
+          <ScrollDirectionProvider>
+            {/* <Navbar /> */}
+            {children}
+          </ScrollDirectionProvider>
         </main>
       </body>
     </html>

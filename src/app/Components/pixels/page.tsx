@@ -90,7 +90,7 @@ export default function ScrollRevealSection() {
         maskElements[index],
         {
           opacity: 1,
-          backgroundColor: "#ffffff",
+          backgroundColor: "#f0efee",
           duration: 0.3,
           ease: "power2.out",
         },
