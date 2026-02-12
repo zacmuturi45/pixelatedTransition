@@ -1,18 +1,22 @@
 // // OPTIMIZED ITERATION - NORMAL TRANSITION
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import Image from "next/image";
-import { bali1, pin1, pin2, pin3 } from "../../../public/assets";
+import { arrowtop, bali1, pin1, pin2, pin3 } from "../../../public/assets";
 import "../css/index.css";
 import { useGSAP } from "@gsap/react";
+import SvgArrow from "../Components/svgArrow/svgArrow";
+import { useRouter } from "next/navigation";
 
 export default function ImageScrollSection() {
   const container = useRef<HTMLDivElement>(null);
-  const sectionRef = useRef(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const cursorRef = useRef<HTMLDivElement>(null);
+  const [cursorVisible, setCursorVisible] = useState<boolean>(false);
 
   // Organized refs by index
   const mainImage1Ref = useRef(null);
@@ -39,6 +43,62 @@ export default function ImageScrollSection() {
   const rightHeader2Ref = useRef(null);
   const rightHeader3Ref = useRef(null);
   const rightHeaderRefs = [rightHeader1Ref, rightHeader2Ref, rightHeader3Ref];
+  const router = useRouter();
+
+  useEffect(() => {
+    const cursor = cursorRef.current;
+    if (!cursor) return;
+
+    const width = 172;
+    const height = 42;
+    const offSet = 15;
+
+    // Use GSAP quickTo for smooth easing
+    const xTo = gsap.quickTo(cursor, "left", {
+      duration: 0.6,
+      ease: "power3.out",
+    });
+    const yTo = gsap.quickTo(cursor, "top", {
+      duration: 0.6,
+      ease: "power3.out",
+    });
+
+    const handleMouseMove = (e: MouseEvent) => {
+      xTo(e.clientX - width / 2);
+      yTo(e.clientY + offSet);
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleMouseEnter = () => {
+      setCursorVisible(true);
+    };
+
+    const handleMouseLeave = () => {
+      setCursorVisible(false);
+    };
+
+    const section = sectionRef.current;
+    if (!section) return;
+
+    section.addEventListener("mouseenter", handleMouseEnter);
+    section.addEventListener("mouseleave", handleMouseLeave);
+
+    return () => {
+      section.removeEventListener("mouseenter", handleMouseEnter);
+      section.removeEventListener("mouseleave", handleMouseLeave);
+    };
+  }, []);
+
+  const handleSectionClick = (e: React.MouseEvent) => {
+    router.push("/");
+  };
 
   // Image data
   const images = [bali1, pin2, pin3];
@@ -265,8 +325,30 @@ export default function ImageScrollSection() {
 
   return (
     <section className="parent_container" ref={container}>
+      <div
+        className="custom_cursor"
+        ref={cursorRef}
+        style={{
+          scale: cursorVisible ? 1 : 0,
+          transition: "scale 0.5s cubic-bezier(0.78, 0, 0.22, 1)",
+        }}
+      >
+        <p>Discover More</p>
+        <div className="cursor_svg">
+          <Image
+            src={arrowtop}
+            width={48}
+            height={48}
+            alt="svgicon"
+            style={{
+              filter: "invert(1) brightness(2)",
+            }}
+          />
+        </div>
+      </div>
+
       <section></section>
-      <section className="parent_section" ref={sectionRef}>
+      <section className="parent_section" ref={sectionRef} onClick={handleSectionClick}>
         {/* Main background images stack */}
         <div className="main_images_container">
           {images.map((img, i) => (
