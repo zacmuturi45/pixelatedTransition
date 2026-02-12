@@ -5,6 +5,7 @@ import React, { useEffect, useRef } from "react";
 import { arrowtop } from "../../../../public/assets";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
+import { useRouter } from "next/navigation";
 gsap.registerPlugin(SplitText);
 
 interface ButtonProps {
@@ -33,6 +34,7 @@ export default function Button({
   const textTwoRef = useRef<HTMLParagraphElement>(null);
   const arrowOneRef = useRef<HTMLDivElement>(null);
   const arrowTwoRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const button = buttonRef.current;
@@ -216,7 +218,7 @@ export default function Button({
   }, [text]); // Re-run when text changes
 
   return (
-    <div className="main_button" ref={buttonRef}>
+    <div className="main_button" ref={buttonRef} onClick={() => router.push("/pinunpin")}>
       <div
         className="main_shaft"
         style={{

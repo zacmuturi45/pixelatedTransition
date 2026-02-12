@@ -687,7 +687,6 @@ section {
 .elementis_main {
   width: 100vw;
   height: 100vh;
-  border: 2px solid red;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -787,5 +786,195 @@ section {
   font-weight: 400;
   margin: 0;
   letter-spacing: -0.02em;
+}
+
+.parent_container {
+  box-sizing: border-box;
+  width: 100vw;
+  min-height: 100vh;
+  position: relative;
+}
+.parent_container .parent_section {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+.parent_container .parent_section .main_images_container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  border: 8px solid rgb(204, 199, 166);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.parent_container .parent_section .main_images_container .imageOverlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 5;
+  pointer-events: none;
+}
+.parent_container .parent_section .main_images_container .main_image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.parent_container .parent_section .main_images_container .main_image:nth-child(2), .parent_container .parent_section .main_images_container .main_image:nth-child(3) {
+  top: 100%;
+}
+.parent_container .parent_section .main_images_container .main_image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.parent_container .parent_section .centered_card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 580px;
+  height: 650px;
+  z-index: 10;
+  background-color: #e6e1d5;
+  backdrop-filter: blur(10px);
+  border-radius: 0.25rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  padding: 0.5rem;
+  padding-bottom: 0;
+}
+.parent_container .parent_section .centered_card .card_images_container {
+  position: relative;
+  width: 100%;
+  height: 70%;
+  overflow: hidden;
+}
+.parent_container .parent_section .centered_card .card_images_container .card_image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.parent_container .parent_section .centered_card .card_images_container .card_image:nth-child(2), .parent_container .parent_section .centered_card .card_images_container .card_image:nth-child(3) {
+  top: 100%;
+}
+.parent_container .parent_section .centered_card .card_images_container .card_image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.parent_container .parent_section .centered_card .card_text_container {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  height: 30%;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.parent_container .parent_section .centered_card .card_text_container .card_paragraph {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(100% - 60px);
+  margin: 0;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: #333;
+  text-align: center;
+  letter-spacing: 1px;
+}
+.parent_container .parent_section .left_header_container,
+.parent_container .parent_section .right_header_container {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+.parent_container .parent_section .left_header_container .header_text,
+.parent_container .parent_section .right_header_container .header_text {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  margin: 0;
+  font-size: 64px;
+  font-weight: 400;
+  font-family: var(--auxilliary-font);
+  letter-spacing: -0.02em;
+  color: #d8cfb8;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.parent_container .parent_section .left_header_container {
+  left: 60px;
+}
+.parent_container .parent_section .left_header_container .header_text {
+  transform-origin: left center;
+}
+.parent_container .parent_section .right_header_container {
+  right: 60px;
+}
+.parent_container .parent_section .right_header_container .header_text {
+  left: auto;
+  right: 0;
+  transform-origin: right center;
+}
+@media (max-width: 1024px) {
+  .parent_container .parent_section .centered_card {
+    width: 480px;
+    height: 580px;
+  }
+  .parent_container .parent_section .left_header_container .header_text,
+  .parent_container .parent_section .right_header_container .header_text {
+    font-size: 48px;
+  }
+  .parent_container .parent_section .left_header_container {
+    left: 40px;
+  }
+  .parent_container .parent_section .right_header_container {
+    right: 40px;
+  }
+}
+@media (max-width: 768px) {
+  .parent_container .parent_section .centered_card {
+    width: 90%;
+    max-width: 400px;
+    height: 500px;
+  }
+  .parent_container .parent_section .centered_card .card_text_container {
+    padding: 20px;
+  }
+  .parent_container .parent_section .centered_card .card_text_container .card_paragraph {
+    font-size: 16px;
+    width: calc(100% - 40px);
+  }
+  .parent_container .parent_section .left_header_container .header_text,
+  .parent_container .parent_section .right_header_container .header_text {
+    font-size: 32px;
+  }
+  .parent_container .parent_section .left_header_container {
+    left: 20px;
+  }
+  .parent_container .parent_section .right_header_container {
+    right: 20px;
+  }
 }
 /*# sourceMappingURL=index.css.map */

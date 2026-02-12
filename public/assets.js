@@ -21,3 +21,10 @@ export { default as el2 } from "./el2.jpeg";
 export { default as el3 } from "./el3.jpeg";
 export { default as el4 } from "./el4.jpeg";
 export { default as el5 } from "./el5.jpeg";
+
+export { default as pin1 } from "./mykonos.jpg";
+export { default as pin2 } from "./pin2.jpg";
+export { default as pin3 } from "./pin3.webp";
+
+export { default as bali1 } from "./bali1.jpg";
+export { default as bali2 } from "./bali2.jpg";
