@@ -26,7 +26,7 @@ export default function RootLayout({
         <Lenisprovider>
           <main ref={contentRef} className="main_content">
             <ScrollDirectionProvider>
-              {/* <Navbar /> */}
+              <Navbar />
               {children}
             </ScrollDirectionProvider>
           </main>

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -10,8 +10,9 @@ import SvgArrow from "./svgArrow/svgArrow";
 import Emojii from "./emojii/emojii";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useScrollDirection } from "../Contexts/scrollDirection";
-import { dunya } from "../../../public/assets";
+import { arrowdown, cart, dunya, logoo } from "../../../public/assets";
 import SearchForm from "./searchForm";
+import Navsvg from "./navsvg";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Navbar() {
@@ -20,6 +21,13 @@ export default function Navbar() {
   const text_two_ref = useRef<HTMLDivElement>(null);
   const marqueeRef = useRef<HTMLDivElement>(null);
   const navbarContainerRef = useRef<HTMLDivElement>(null);
+
+  // Dropdown refs
+  const dropdownRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
+  const svgRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
+  const timelinesRef = useRef<{ [key: string]: gsap.core.Timeline | undefined }>({});
+
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
   const { scrollDirection } = useScrollDirection();
 
@@ -37,11 +45,134 @@ export default function Navbar() {
     { linkName: "Women", link: "/" },
   ];
 
+  // Dropdown links with keys for identification
+  const dropdownLinks = [
+    { id: "over-ons", label: "Over ons", hasDropdown: true },
+    { id: "inspiratie", label: "Inspiratie", hasDropdown: true },
+    { id: "configurator", label: "Configurator", hasDropdown: false },
+    { id: "populaire", label: "Populaire opstellingen", hasDropdown: true },
+    { id: "webshop", label: "Webshop", hasDropdown: true },
+    { id: "showroom", label: "Showroom", hasDropdown: false },
+  ];
+
   let xPercent = 0;
   let direction = -1;
 
+  let leaveTimeout: NodeJS.Timeout | null = null;
+
+  // Handle dropdown hover
+  const handleDropdownEnter = (dropdownId: string) => {
+    // Close current dropdown if different
+    if (activeDropdown && activeDropdown !== dropdownId) {
+      closeDropdown(activeDropdown);
+
+      // Wait for close animation to finish before opening new one
+      setTimeout(() => {
+        setActiveDropdown(dropdownId);
+        openDropdown(dropdownId);
+      }, 300); // Match this to closeDropdown duration
+    } else {
+      // No dropdown open, open immediately
+      setActiveDropdown(dropdownId);
+      openDropdown(dropdownId);
+    }
+  };
+
+  const handleDropdownLeave = () => {
+    // Delay closing to allow mouse to move to next dropdown
+    leaveTimeout = setTimeout(() => {
+      if (activeDropdown) {
+        closeDropdown(activeDropdown);
+        setActiveDropdown(null);
+      }
+    }, 100); // Small delay
+  };
+
+  const openDropdown = (dropdownId: string) => {
+    const dropdown = dropdownRefs.current[dropdownId];
+    const svg = svgRefs.current[dropdownId];
+
+    if (!dropdown) return;
+
+    // Kill any existing timeline
+    if (timelinesRef.current[dropdownId]) {
+      timelinesRef.current[dropdownId].kill();
+    }
+
+    // Create new timeline
+    const tl = gsap.timeline({
+      defaults: { ease: "power2.out" },
+    });
+
+    tl.to(
+      dropdown,
+      {
+        scaleY: 1,
+        duration: 0.4,
+        ease: "power3.out",
+      },
+      0
+    );
+
+    if (svg) {
+      tl.to(
+        svg,
+        {
+          rotation: 180,
+          duration: 0.3,
+          ease: "power2.inOut",
+        },
+        0
+      );
+    }
+
+    timelinesRef.current[dropdownId] = tl;
+  };
+
+  const closeDropdown = (dropdownId: string) => {
+    const dropdown = dropdownRefs.current[dropdownId];
+    const svg = svgRefs.current[dropdownId];
+
+    if (!dropdown) return;
+
+    // Kill existing timeline if any
+    if (timelinesRef.current[dropdownId]) {
+      timelinesRef.current[dropdownId].kill();
+    }
+
+    // Create closing timeline
+    const tl = gsap.timeline({
+      defaults: { ease: "power2.in" },
+    });
+
+    tl.to(
+      dropdown,
+      {
+        scaleY: 0,
+        duration: 0.3,
+        ease: "power3.in",
+      },
+      0
+    );
+
+    if (svg) {
+      tl.to(
+        svg,
+        {
+          rotation: 0,
+          duration: 0.3,
+          ease: "power2.inOut",
+        },
+        0
+      );
+    }
+
+    timelinesRef.current[dropdownId] = tl;
+  };
+
   // Scroll Direction Animation
   useEffect(() => {
+    const dropdowns = gsap.utils.toArray(".dropdown");
     if (scrollDirection === "down") {
       const tl = gsap.timeline({
         defaults: { ease: "power3.inOut" },
@@ -55,15 +186,16 @@ export default function Navbar() {
         },
         0
       ) // Start at time 0
+        .to([dropdowns], { top: 48 }, 0)
         .to(
           navbarContainerRef.current,
           {
             width: "90%",
             height: 84,
             y: -16,
-            backgroundColor: "rgba(255, 255, 255, 0.5)",
-            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-            borderRadius: "250px",
+            // backgroundColor: "rgba(255, 255, 255, 0.5)",
+            // boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+            borderRadius: "8px",
             backdropFilter: "blur(10px)",
             duration: 0.5,
             overwrite: "auto",
@@ -89,8 +221,8 @@ export default function Navbar() {
             width: "100%",
             y: 0,
             height: 96,
-            backgroundColor: "var(--tone-background)",
-            boxShadow: "0 0 0 rgba(0, 0, 0, 0)",
+            // backgroundColor: "var(--tone-background)",
+            // boxShadow: "0 0 0 rgba(0, 0, 0, 0)",
             backdropFilter: "blur(0px)",
             borderRadius: 0,
             duration: 0.4,
@@ -175,22 +307,80 @@ export default function Navbar() {
         </div>
 
         <div className="navbar_container" ref={navbarContainerRef}>
+          <div className="dropdown"></div>
           <div className="links_container">
-            <div className="links_container_links">{renderLinks()}</div>
+            <div className="links_container_links">
+              <div className="logooo">
+                <Image src={logoo} width={32} height={32} alt="logo" unoptimized />
+              </div>
+              <div
+                className="logo_links"
+                onMouseEnter={() => handleDropdownEnter("over-ons")}
+                onMouseLeave={handleDropdownLeave}
+              >
+                <Link href={"/"}>Over ons</Link>
+                <div
+                  ref={(el) => {
+                    svgRefs.current["over-ons"] = el;
+                  }}
+                >
+                  <Navsvg />
+                </div>
+                <div
+                  className="dropdown"
+                  ref={(el) => {
+                    dropdownRefs.current["over-ons"] = el;
+                  }}
+                  style={{ backgroundColor: "blue" }}
+                ></div>
+              </div>
 
-            <div className="links_container_logo">
-              <Image src={dunya} width={64} height={64} alt="dunya" unoptimized />
+              <div
+                className="logo_links"
+                onMouseEnter={() => handleDropdownEnter("inspiratie")}
+                onMouseLeave={handleDropdownLeave}
+              >
+                <Link href={"/"}>Inspiratie</Link>
+                <div
+                  ref={(el) => {
+                    svgRefs.current["inspiratie"] = el;
+                  }}
+                >
+                  <Navsvg />
+                </div>
+                <div
+                  className="dropdown"
+                  ref={(el) => {
+                    dropdownRefs.current["inspiratie"] = el;
+                  }}
+                  style={{ backgroundColor: "red" }}
+                ></div>
+              </div>
             </div>
 
-            <div className="links_container_login">
-              <div className="search">
-                <SearchForm />
+            <div className="links_container_mid">
+              <div className="logo_links">
+                <Link href={"/"}>Configurator</Link>
               </div>
-              <div className="login">
-                <p>Login</p>
+
+              <div className="logo_links">
+                <Link href={"/"}>Populaire opstellingen</Link>
+                <Navsvg />
               </div>
+
+              <div className="logo_links">
+                <Link href={"/"}>Webshop</Link>
+                <Navsvg />
+              </div>
+
+              <div className="logo_links">
+                <Link href={"/"}>Showroom</Link>
+              </div>
+            </div>
+
+            <div className="links_container_cart">
               <div className="cart">
-                <p>Cart</p>
+                <Image src={cart} width={48} height={48} alt="cart" />
               </div>
             </div>
           </div>

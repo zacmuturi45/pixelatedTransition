@@ -28,3 +28,6 @@ export { default as pin3 } from "./pin3.webp";
 
 export { default as bali1 } from "./bali1.jpg";
 export { default as bali2 } from "./bali2.jpg";
+
+export { default as logoo } from "./keukenlogo.png";
+export { default as cart } from "./cart.svg";

@@ -16,7 +16,7 @@
   --tone-600: #ff0000;
   --tone-brown: #aba59b;
   --tone-blacklight: rgb(35, 35, 35);
-  --tone-background: #f0efee;
+  --tone-background: #ffffff;
   --main-font: "PP Neue Montreal", sans-serif;
   --secondary-font: "Overused Grotesk", sans-serif;
   --auxilliary-font: "Roboto Condensed", sans-serif;
@@ -191,12 +191,14 @@ section {
 .navbar_main .navbar_main_container .marquee_main {
   width: 100%;
   height: 42px;
+  z-index: 2;
   box-sizing: border-box;
   background-color: var(--tone-blacklight);
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 9999;
 }
 .navbar_main .navbar_main_container .marquee_main .marquee_container {
   display: flex;
@@ -234,8 +236,8 @@ section {
   width: 100%;
   height: 96px;
   box-sizing: border-box;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  background-color: var(--tone-background);
+  position: relative;
+  background-color: #f0efee;
 }
 .navbar_main .navbar_main_container .navbar_container a {
   text-decoration: none;
@@ -254,36 +256,69 @@ section {
   display: flex;
   width: fit-content;
   gap: 2rem;
-}
-.navbar_main .navbar_main_container .navbar_container .links_container_links .links {
-  display: flex;
-  justify-content: center;
   align-items: center;
-  height: fit-content;
+  z-index: 9999;
 }
-.navbar_main .navbar_main_container .navbar_container .links_container_links .links p {
-  margin: 0;
-  font-size: 1.2rem;
-  text-transform: uppercase;
-  font-family: monospace;
+.navbar_main .navbar_main_container .navbar_container .links_container_links .logooo {
+  width: 72px;
+  height: 72px;
+  margin-right: 2.5rem;
+  overflow: hidden;
 }
-.navbar_main .navbar_main_container .navbar_container .links_container_logo {
+.navbar_main .navbar_main_container .navbar_container .links_container_links .logooo img {
+  width: 105%;
+  height: 105%;
+  object-fit: cover;
+}
+.navbar_main .navbar_main_container .navbar_container .links_container_links .logo_links {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  position: relative;
+}
+.navbar_main .navbar_main_container .navbar_container .links_container_links .logo_links .dropdown {
+  position: fixed;
+  top: 100px;
+  left: 0;
+  width: 100%;
+  height: 600px;
+  background-color: #f0efee;
+  border-radius: 0.5rem;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  transform: scaleY(0);
+  transform-origin: top left;
+  z-index: -1;
+}
+.navbar_main .navbar_main_container .navbar_container .links_container_links .logo_links a {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--tone-blacklight);
+}
+.navbar_main .navbar_main_container .navbar_container .links_container_mid {
+  display: flex;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  gap: 2.5rem;
+  align-items: center;
+  z-index: 9999;
 }
-.navbar_main .navbar_main_container .navbar_container .links_container_login {
+.navbar_main .navbar_main_container .navbar_container .links_container_mid .logo_links {
   display: flex;
-  gap: 2rem;
-  justify-content: space-between;
+  gap: 0.5rem;
   align-items: center;
 }
-.navbar_main .navbar_main_container .navbar_container .links_container_login p {
-  margin: 0;
-  font-size: 1.2rem;
-  font-family: monospace;
-  text-transform: uppercase;
+.navbar_main .navbar_main_container .navbar_container .links_container_mid .logo_links a {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--tone-blacklight);
+}
+.navbar_main .navbar_main_container .navbar_container .links_container_cart {
+  z-index: 9999;
+  display: flex;
+  align-items: center;
 }
 
 .hero {
