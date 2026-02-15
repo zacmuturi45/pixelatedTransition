@@ -31,3 +31,16 @@ export { default as bali2 } from "./bali2.jpg";
 
 export { default as logoo } from "./keukenlogo.png";
 export { default as cart } from "./cart.svg";
+
+export { default as kitch1 } from "./kitch1.webp";
+export { default as kitch2 } from "./kitch2.webp";
+export { default as kitch3 } from "./kitch3.webp";
+export { default as kitch4 } from "./kitch4.webp";
+export { default as kitch5 } from "./kitch5.webp";
+export { default as kitch6 } from "./kitch6.webp";
+export { default as kitch7 } from "./kitch7.webp";
+export { default as kitch8 } from "./kitch8.webp";
+export { default as kitch9 } from "./kitch9.webp";
+export { default as kitch10 } from "./kitch10.webp";
+export { default as kitch11 } from "./kitch11.webp";
+export { default as kitch12 } from "./kitch12.webp";

@@ -312,12 +312,13 @@ section {
           gap: 2rem;
           // border: 2px solid red;
           align-items: center;
-          z-index: 9999;
+          z-index: 99999;
           .logooo {
             width: 72px;
             height: 72px;
             margin-right: 2.5rem;
             overflow: hidden;
+            z-index: 9999;
             img {
               width: 105%;
               height: 105%;
@@ -330,13 +331,13 @@ section {
             align-items: center;
             position: relative;
             // border: 2px solid red;
-
+            z-index: 999;
             .dropdown {
               position: fixed;
               top: 100px;
               left: 0;
               width: 100%;
-              height: 600px;
+              height: 500px;
               background-color: #f0efee;
               border-radius: 0.5rem;
               border-top-left-radius: 0;
@@ -344,6 +345,73 @@ section {
               transform: scaleY(0);
               transform-origin: top left;
               z-index: -1;
+              padding: 48px 24px 24px 24px;
+              box-sizing: border-box;
+              display: none;
+              // border: 2px solid blue;
+              .dropdown_container {
+                width: 100%;
+                height: 100%;
+                // border: 2px solid red;
+                overflow: hidden;
+                box-sizing: border-box;
+                .marquee_wrapper {
+                  display: flex;
+                  width: fit-content;
+                  // border: 2px solid blue;
+                  height: 100%;
+                  .marquee_images {
+                    height: 400px;
+                    box-sizing: border-box;
+                    display: flex;
+                    gap: 0;
+                    // border: 3px solid black;
+                    .marquee_image {
+                      opacity: 1;
+                      width: 400px;
+                      height: 100%;
+                      box-sizing: border-box;
+                      margin-right: 1rem;
+                      flex-shrink: 0;
+                      cursor: pointer;
+                      .img_div {
+                        width: 100%;
+                        height: 90%;
+                        position: relative;
+                        img {
+                          position: absolute;
+                          display: block;
+                          width: 100%;
+                          height: 100%;
+                          object-fit: cover;
+                        }
+                        :nth-child(1) {
+                          z-index: 2;
+                        }
+                      }
+                      .img_div:hover {
+                        :nth-child(2) {
+                          z-index: 3;
+                        }
+                      }
+                      .image_text {
+                        height: 10%;
+                        display: flex;
+                        align-items: flex-end;
+                        p {
+                          margin: 0;
+                          font-family: var(--secondary-font);
+                          color: black;
+                          text-transform: capitalize;
+                          font-size: 1rem;
+                          font-weight: 500;
+                          letter-spacing: 1px;
+                        }
+                      }
+                    }
+                  }
+                }
+              }
             }
             a {
               font-size: 20px;
@@ -355,13 +423,15 @@ section {
         &_mid {
           display: flex;
           // border: 2px solid red;
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
+          // position: absolute;
+          // top: 50%;
+          // left: 50%;
+          // transform: translate(-50%, -50%);
+          padding-left: 15em;
+          flex: 1;
           gap: 2.5rem;
           align-items: center;
-          z-index: 9999;
+          z-index: 99999;
           .logo_links {
             display: flex;
             gap: 0.5rem;
@@ -372,9 +442,23 @@ section {
               color: var(--tone-blacklight);
             }
           }
+          .dropdown {
+            position: fixed;
+            top: 100px;
+            left: 0;
+            width: 100%;
+            height: 500px;
+            background-color: #f0efee;
+            border-radius: 0.5rem;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            transform: scaleY(0);
+            transform-origin: top left;
+            z-index: -1;
+          }
         }
         &_cart {
-          z-index: 9999;
+          z-index: 99999;
           display: flex;
           align-items: center;
         }
